@@ -18,12 +18,21 @@
 }
 
 .main-navigation__title {
-  color: white;
+  color: yellow;
+  font-weight: 100;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main-navigation__title a {
-  text-decoration: none;
+  
   color: white;
+  
+}
+
+.main-navigation__title span {
+  font-weight: 500;
+  color: white;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .main-navigation__header-nav {

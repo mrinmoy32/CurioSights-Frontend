@@ -31,8 +31,8 @@ function MainNavigation() {
           <span />
           <span />
         </button>
-        <Link to="/">
-          <h1 className="main-navigation__title">Take-Me-To</h1>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <h1 className="main-navigation__title">travel<span>ing</span></h1>
         </Link>
         <nav className="main-navigation__header-nav">
           <NavLinks />
