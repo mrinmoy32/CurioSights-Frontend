@@ -13,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" Component={Users} />
           <Route path="/places/new" Component={NewPlace} />
+          {/* in below path="/:userId/places" the ":userId" portion is dynami 
+          and could be use for useParams hook */}
           <Route path="/:userId/places" Component={UserPlaces} />
         </Routes>
       </main>
