@@ -8,7 +8,7 @@ const DUMMY_PLACES = [
     title: "Tirupati Balaji Temple",
     description: "Most visited indian temple",
     imageUrl: "https://blog.thomascook.in/wp-content/uploads/2019/11/tirupati-balaji-temple.jpg.jpg",
-    address: "M8MX+863, Tirumala, Tirupati, Andhra Pradesh 517501",
+    address: "Tirumala, Tirupati, Andhra Pradesh 517501",
     loaction: {
       lat: 13.6832576,
       lng: 79.27801,
@@ -39,7 +39,7 @@ const DUMMY_PLACES = [
       lat: -13.163141,
       lng: -72.545872,
     },
-    creator: "u3",
+    creator: "u1",
   },
 ];
 
