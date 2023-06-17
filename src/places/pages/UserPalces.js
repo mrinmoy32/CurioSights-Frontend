@@ -50,7 +50,6 @@ const UserPlaces = () => {
   // a userId property. The path is set in App.js
   
   const userId = useParams().userId;
-  console.log(useParams);
   const loadedPlaces = DUMMY_PLACES.filter(place=>place.creator === userId)
 
   return <PlacesList places={loadedPlaces} />;
