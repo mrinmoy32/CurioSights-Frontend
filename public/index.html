@@ -29,10 +29,19 @@
     <!-- ***We have kept API KEY EMPTY as api key is paid and credit card needed
       So in src we would remove the YOUR_API_KEY part. Idealy src looks like below
     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" -->
-    <script
+
+    <!-- <script
       async
       src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
-    ></script>
+    ></script> -->
+
+    <!-- LETS use GOOGLE MAP alternative OpenLayers hence commented the above script -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -40,7 +49,7 @@
       and render independent to the root element   -->
     <div id="drawer-hook"></div>
     <div id="backdrop-hook"></div>
-    <div id="modla-hook"></div>
+    <div id="modal-hook"></div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
