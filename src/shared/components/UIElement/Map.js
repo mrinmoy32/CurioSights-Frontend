@@ -7,7 +7,8 @@ const Map = (props) => {
   // without using the document.getElementById function. Also useRef helps us to create reference
   // to a certain element that might stay uneffected even after rerendering of the UI
   const mapRef = useRef();
-  const { center, zoom } = props;
+  const { center, zoom } = props; //example of object destructuring
+
   //useEffect allows us to regester a logic or a function
   //that should be executed when certain inputs change
   //if we pass empty dependancy array the callback func
