@@ -7,7 +7,7 @@ import "./Input.css";
 //will have a type property
 const inputReducer = (state, action) => {
   switch (action.type) {
-    case "CAHNGE":
+    case "CHANGE":
       // so depending upon the change type we would return the new statement
       return {
         ...state, //the ...state copies all the key, value pairs from current state
@@ -31,7 +31,7 @@ function Input(props) {
   // and rerender the component
 
   //userReducer taking the inputReducer as argumnet, also useReducer can take 2nd argument as
-  //initial state with with which we want to initialize our component like we used below
+  //initial state with which we want to initialize our component like we used below
 
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: "",
@@ -55,15 +55,25 @@ function Input(props) {
         type={props.type}
         placeholder={props.placeholder}
         onChange={changeHandler}
+        value={inputState.value}
       />
     ) : (
-      <textarea id={props.id} rows={props.rows || 3} onChange={changeHandler} />
+      <textarea
+        id={props.id}
+        rows={props.rows || 3}
+        onChange={changeHandler}
+        value={inputState.value}
+      />
     );
+    console.log(inputState.value) //here we get the text typed in the input field of form
 
   return (
-    <div className={`form-control`}>
+    <div className={`form-control ${!inputState.isValid && 'form-control--invalid'}`}>
       <label htmlFor={props.id}>{props.label}</label>
       {element}
+      {!inputState.isValid && <p>{props.errorText}</p>}
+      {inputState.value //here we get the text typed in the input field of form
+      }
     </div>
   );
 }
