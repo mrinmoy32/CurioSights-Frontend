@@ -1,4 +1,6 @@
 import React, { useReducer } from "react";
+
+import { validate } from "../../util/validators";
 import "./Input.css";
 
 //In below code inputReducer is the reducer that takes current state and action
@@ -12,7 +14,12 @@ const inputReducer = (state, action) => {
       return {
         ...state, //the ...state copies all the key, value pairs from current state
         value: action.val, //here we are passing the new value as a property in action object
-        isValid: true,
+        isValid: validate(action.val, action.validators),
+      };
+    case "TOUCH":
+      return {
+        ...state,
+        isTouched: true,
       };
     default:
       return state;
@@ -36,18 +43,29 @@ function Input(props) {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: "",
     isValid: false,
+    isTouched: false,
   });
   //just like useState hook useReducer also retruns an array with exactly 2 elements
   //which we would be storing in variables using the array destructing shown above
   //and the 2 elements we always get from useReducer are current state and a dispacth func which we can call
-  //here those are inputState and dispatch
+  //Here those are inputState and dispatch
 
   //So this is how we will disptach actions to the reducer function which will run throgh the function and
   //return new state, which will update the input state and the component will rerender
 
+  //The object passed to the dispatch function is actually the action object
   const changeHandler = (event) => {
-    dispatch({ type: "CHANGE", val: event.target.value });
+    dispatch({
+      type: "CHANGE",
+      val: event.target.value,
+      validators: props.validators,
+    });
   };
+
+  const touchHandler = () => {
+    dispatch({ type: "TOUCH" });
+  };
+
   const element =
     props.element === "input" ? (
       <input
@@ -55,6 +73,7 @@ function Input(props) {
         type={props.type}
         placeholder={props.placeholder}
         onChange={changeHandler}
+        onBlur={touchHandler}
         value={inputState.value}
       />
     ) : (
@@ -62,17 +81,23 @@ function Input(props) {
         id={props.id}
         rows={props.rows || 3}
         onChange={changeHandler}
+        onBlur={touchHandler}
         value={inputState.value}
       />
     );
-    console.log(inputState.value) //here we get the text typed in the input field of form
+  console.log(inputState.value); //here we get the text typed in the input field of form
 
   return (
-    <div className={`form-control ${!inputState.isValid && 'form-control--invalid'}`}>
+    <div
+      className={`form-control ${
+        !inputState.isValid && inputState.isTouched && "form-control--invalid"
+      }`}
+    >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
       {!inputState.isValid && <p>{props.errorText}</p>}
-      {inputState.value //here we get the text typed in the input field of form
+      {
+        inputState.value //here we get the text typed in the input field of form
       }
     </div>
   );
