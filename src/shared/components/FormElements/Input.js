@@ -54,6 +54,14 @@ function Input(props) {
   //return new state, which will update the input state and the component will rerender
 
   //The object passed to the dispatch function is actually the action object
+
+  const { id, onInput } = props;
+  const { value, isValid } = inputState;
+
+  useEffect(() => {
+    onInput(id, value, isValid);
+  }, [id, onInput, value, isValid]);
+
   const changeHandler = (event) => {
     dispatch({
       type: "CHANGE",
@@ -65,13 +73,6 @@ function Input(props) {
   const touchHandler = () => {
     dispatch({ type: "TOUCH" });
   };
-
-  const { id, onInput } = props;
-  const { value, isValid } = inputState;
-
-  useEffect(() => {
-    onInput(id, value, isValid);
-  }, [id, onInput, value, isValid]);
 
   const element =
     props.element === "input" ? (
@@ -102,7 +103,7 @@ function Input(props) {
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!inputState.isValid && <p>{props.errorText}</p>}
+      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
       {
         inputState.value //here we get the text typed in the input field of form
       }

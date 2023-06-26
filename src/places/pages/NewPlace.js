@@ -3,8 +3,8 @@ import React, { useCallback, useReducer } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import {
-  VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
+  VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import "./NewPlace.css";
 
@@ -21,7 +21,7 @@ const formReducer = (state, action) => {
       }
       return {
         ...state,
-        input: {
+        inputs: {
           ...state.inputs,
           [action.inputId]: { value: action.value, isValid: action.isValid },
         },
@@ -32,8 +32,8 @@ const formReducer = (state, action) => {
   }
 };
 
-function NewPlace() {
-  const [formState, dispacth] = useReducer(formReducer, {
+const NewPlace = () => {
+  const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
         value: "",
@@ -47,14 +47,12 @@ function NewPlace() {
     isValid: false,
   });
 
-  const inputInputHandler = useCallback((id, value, isValid) => {
-    dispacth(() => {
-      return {
-        type: "INPUT_CHANGE",
-        value: value,
-        isValid: isValid,
-        inputId: id,
-      };
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: "INPUT_CHANGE",
+      value: value,
+      isValid: isValid,
+      inputId: id,
     });
   }, []);
 
@@ -66,25 +64,22 @@ function NewPlace() {
         type="text"
         label="Title"
         validators={[VALIDATOR_REQUIRE()]}
-        errorText="Plesae enter a valid title"
-        onInput={inputInputHandler}
+        errorText="Please enter a valid title."
+        onInput={inputHandler}
       />
       <Input
         id="description"
         element="textarea"
-        type="text"
-        label="description"
+        label="Description"
         validators={[VALIDATOR_MINLENGTH(10)]}
-        errorText="Plesae enter a valid description (minimum 10 characters)"
-        onInput={inputInputHandler}
+        errorText="Please enter a valid description (at least 10 characters)."
+        onInput={inputHandler}
       />
       <Button type="submit" disabled={!formState.isValid}>
         ADD PLACE
       </Button>
-      {console.log(formState.isValid)}
     </form>
-    
   );
-}
+};
 
 export default NewPlace;
