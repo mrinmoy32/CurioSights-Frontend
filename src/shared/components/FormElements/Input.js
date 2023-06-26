@@ -93,7 +93,7 @@ function Input(props) {
         value={inputState.value}
       />
     );
-  console.log(inputState.value); //here we get the text typed in the input field of form
+  // console.log(inputState.value); //here we get the text typed in the input field of form
 
   return (
     <div
@@ -104,9 +104,6 @@ function Input(props) {
       <label htmlFor={props.id}>{props.label}</label>
       {element}
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
-      {
-        inputState.value //here we get the text typed in the input field of form
-      }
     </div>
   );
 }
