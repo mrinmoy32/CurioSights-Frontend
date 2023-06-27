@@ -71,6 +71,7 @@ const NewPlace = () => {
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={inputHandler}
+        placeholder="Please enter the title"
       />
       <Input
         id="description"
@@ -79,14 +80,16 @@ const NewPlace = () => {
         validators={[VALIDATOR_MINLENGTH(10)]}
         errorText="Please enter a valid description (at least 10 characters)."
         onInput={inputHandler}
+        placeholder="Please enter the description"
       />
       <Input
-        id="addess"
+        id="address"
         element="input"
         label="Address"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid address)."
         onInput={inputHandler}
+        placeholder="Please enter the address"
       />
       <Button type="submit" disabled={!formState.isValid}>
         ADD PLACE
