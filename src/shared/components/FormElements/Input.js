@@ -41,8 +41,8 @@ function Input(props) {
   //initial state with which we want to initialize our component like we used below
 
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: "",
-    isValid: false,
+    value: props.value || "",
+    isValid: props.isValid || false,
     isTouched: false,
   });
   //just like useState hook useReducer also retruns an array with exactly 2 elements
