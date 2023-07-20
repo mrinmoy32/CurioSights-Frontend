@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -7,34 +7,14 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import "./PlaceForm.css";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid },
-        },
-        isValid: formIsValid,
-      };
-    default:
-      return state;
-  }
-};
+import { useForm } from "../../shared/hooks/form-hook";
 
 const NewPlace = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
+  //A custom hook is a function that starts with use and can share stateful logic. useForm is a customhook
+  //Also as React knows this is a hook when we update the state inside the custom hook then the 
+  //componnet that uses our custom hooks also updates as well
+  const [formState, inputHandler] = useForm(
+    {
       title: {
         value: "",
         isValid: false,
@@ -43,23 +23,19 @@ const NewPlace = () => {
         value: "",
         isValid: false,
       },
+      address: {
+        value: "",
+        isValid: false,
+      },
     },
-    isValid: false,
-  });
+    false
+  );
+ 
 
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
-  }, []);
-
-  const placeSubmitHandler = event => {
+  const placeSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formState.inputs) //send this to Backend when Backend is ready
-  }
+    console.log(formState.inputs); //send this to Backend when Backend is ready
+  };
 
   return (
     <form className="place-form" onSubmit={placeSubmitHandler}>
