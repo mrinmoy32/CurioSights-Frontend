@@ -7,6 +7,7 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 import "./PlaceForm.css";
 
 const DUMMY_PLACES = [
@@ -57,6 +58,25 @@ function UpdatePlace() {
   const identifiedPlace = DUMMY_PLACES.find((place) => place.id === placeId);
   //console.log(DUMMY_PLACES);
 
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: identifiedPlace.title,
+        isValid: true,
+      },
+      description: {
+        value: identifiedPlace.description,
+        isValid: true,
+      },
+    },
+    true
+  );
+
+  const updatePlaceSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  } 
+
   if (!identifiedPlace) {
     return (
       <div className="center">
@@ -65,7 +85,7 @@ function UpdatePlace() {
     );
   }
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={updatePlaceSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -73,9 +93,9 @@ function UpdatePlace() {
         label="Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
-        onInput={() => {}}
-        value={identifiedPlace.title}
-        valid={true}
+        onInput={inputHandler}
+        value={formState.inputs.title.value}
+        valid={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -83,11 +103,11 @@ function UpdatePlace() {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(10)]}
         errorText="Please enter a valid description min 10 characters."
-        onInput={() => {}}
-        value={identifiedPlace.description}
-        valid={true}
+        onInput={inputHandler}
+        value={formState.inputs.description.value}
+        valid={formState.inputs.description.isValid}
       />
-      <Button type="submit" disbled={true}>
+      <Button type="submit" disbled={!formState.isValid}>
         UPDATE PLACE
       </Button>
     </form>
