@@ -1,4 +1,4 @@
-# Project-MERN-FullStack
+# MERN-FullStack
 
 **Project Name: MERN-Client**
 
@@ -6,7 +6,7 @@
 
 **Description:**
 
-This project is the frontend application built using React to demonstrates use of React, Node, Express and MongoDB. It is social media platform where users can share photos of places they have visited and also view the places visited by others..
+This project is the frontend for a MERN stack app to demonstrates use of React, Node, Express and MongoDB. It is social media platform where users can share photos of places they have visited and also view the places visited by others.
 
 **Getting Started:**
 
