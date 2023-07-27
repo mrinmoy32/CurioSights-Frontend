@@ -5,6 +5,7 @@ import NewPlace from "./places/pages/NewPlace";
 import MainNavigation from "./shared/components/Navigation/MainNavigation"
 import UserPlaces from "./places/pages/UserPalces";
 import UpdatePlace from "./places/pages/UpdatePlace";
+import Auth from "./user/pages/Auth";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           and can have any value even "new". So it is better to keep the path having "new" before 
           the one having ":placeId". As this executes from top to bottom it checks new first the the 
           dynamic routing */}
+          <Route path="/auth" Component={Auth}/>
         </Routes>
       </main>
     </Router>
