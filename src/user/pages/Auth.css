@@ -16,3 +16,7 @@
   border-radius: 6px;
 }
 
+.authentication__swich-button{
+  margin-top: 1rem;
+  /* font-size: xx-small; */
+}
