@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "../../shared/hooks/form-hook";
 import Button from "../../shared/components/FormElements/Button";
 import Input from "../../shared/components/FormElements/Input";
+import { AuthContext } from "../../shared/context/auth.context";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
@@ -10,6 +11,8 @@ import {
 import "./Auth.css";
 
 function Auth() {
+  const auth = useContext(AuthContext)
+
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -28,6 +31,7 @@ function Auth() {
   const AuthSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs); //send this to Backend when Backend is ready
+    auth.login();
   };
 
   const switchModeHandler = () => {
