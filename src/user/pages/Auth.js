@@ -6,6 +6,7 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
 } from "../../shared/util/validators";
+import './Auth.css'
 
 function Auth() {
   const [formState, inputHandler] = useForm(
@@ -22,13 +23,15 @@ function Auth() {
     false
   );
 
-  const loginSubmitHandler = (event) => {
+  const AuthSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs); //send this to Backend when Backend is ready
   };
 
   return (
-    <form className="place-form" onSubmit={loginSubmitHandler}>
+    <form className="authentication" onSubmit={AuthSubmitHandler}>
+        <h4 className="authentication__header">Login Required!</h4>
+        <hr />
       <Input
         id="email"
         element="input"
