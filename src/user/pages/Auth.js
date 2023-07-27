@@ -1,0 +1,63 @@
+import React from "react";
+import { useForm } from "../../shared/hooks/form-hook";
+import Button from "../../shared/components/FormElements/Button";
+import Input from "../../shared/components/FormElements/Input";
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_EMAIL,
+} from "../../shared/util/validators";
+
+function Auth() {
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+      address: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
+
+  const loginSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs); //send this to Backend when Backend is ready
+  };
+
+  return (
+    <form className="place-form" onSubmit={loginSubmitHandler}>
+      <Input
+        id="email"
+        element="input"
+        type="email"
+        label="Email"
+        validators={[VALIDATOR_EMAIL()]}
+        errorText="Please enter a valid email id."
+        onInput={inputHandler}
+        placeholder="Please enter the email id"
+      />
+      <Input
+        id="password"
+        element="input"
+        label="Password"
+        validators={[VALIDATOR_MINLENGTH(8)]}
+        errorText="Please enter a valid password (at least 8 characters)"
+        onInput={inputHandler}
+        placeholder="Please enter the password"
+      />
+      <Button type="submit" disabled={!formState.isValid}>
+        LOGIN
+      </Button>
+      <Button>SIGN UP</Button>
+    </form>
+  );
+}
+
+export default Auth;
