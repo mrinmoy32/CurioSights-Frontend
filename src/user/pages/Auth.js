@@ -45,6 +45,7 @@ function Auth() {
       <Input
         id="password"
         element="input"
+        type="password"
         label="Password"
         validators={[VALIDATOR_MINLENGTH(8)]}
         errorText="Please enter a valid password (at least 8 characters)"
