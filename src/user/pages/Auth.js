@@ -10,15 +10,11 @@ import {
 function Auth() {
   const [formState, inputHandler] = useForm(
     {
-      title: {
+      email: {
         value: "",
         isValid: false,
       },
-      description: {
-        value: "",
-        isValid: false,
-      },
-      address: {
+      password: {
         value: "",
         isValid: false,
       },
