@@ -11,6 +11,13 @@ function PlaceItem(props) {
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
 
+  const [showConfirmDeleteModal, setshowConfirmDeleteModal] = useState(false);
+  const openConfirmDeleteModalHandler = () => setshowConfirmDeleteModal(true);
+  const closeConfirmDeleteModalHandler = () =>
+    setshowConfirmDeleteModal(false);
+
+  const confirmDeleteHandler = () => console.log("DELETING", props);
+
   return (
     <React.Fragment>
       <Modal
@@ -24,6 +31,27 @@ function PlaceItem(props) {
         <div className="map-container">
           <Map center={props.coordinates} zoom={16} />
         </div>
+      </Modal>
+      <Modal
+        show={showConfirmDeleteModal}
+        header="Are you sure?"
+        onCancel={closeConfirmDeleteModalHandler}
+        footerClass="place-item__modal-actions"
+        footer={
+          <React.Fragment>
+            <Button inverse onClick={closeConfirmDeleteModalHandler}>
+              CANCEL
+            </Button>
+            <Button danger onClick={confirmDeleteHandler}>
+              DELETE
+            </Button>
+          </React.Fragment>
+        }
+      >
+        <p>
+          Deleting a place cannot be undone, all the data related to this place
+          will be permanently removed
+        </p>
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
@@ -40,7 +68,9 @@ function PlaceItem(props) {
               VIEW ON MAP
             </Button>
             <Button to={`/places/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={openConfirmDeleteModalHandler}>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>
