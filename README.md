@@ -109,13 +109,13 @@ Contributions to this project are welcome! Please follow the standard pull reque
 
 The following links allow to dive deeper into some of the concepts.
 
-Official React Docs: https://reactjs.org/docs/getting-started.html
+- Official React Docs: https://reactjs.org/docs/getting-started.html
 
-Further React Resources: https://academind.com/learn/react/
+- Further React Resources: https://academind.com/learn/react/
 
 **Make Sure To Follow Me and Star ⭐ This Repository**
 
-LinkedIn: https://www.linkedin.com/in/mrinmoy-pal-a645011a4/
+- LinkedIn: https://www.linkedin.com/in/mrinmoy-pal-a645011a4/
 
-Github: https://github.com/mrinmoy32
+- Github: https://github.com/mrinmoy32
 
