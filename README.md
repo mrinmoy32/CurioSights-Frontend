@@ -113,7 +113,7 @@ Official React Docs: https://reactjs.org/docs/getting-started.html
 
 Further React Resources: https://academind.com/learn/react/
 
-**Make Sure To Follow Me**
+**Make Sure To Follow Me and Star ⭐ This Repository**
 
 LinkedIn: https://www.linkedin.com/in/mrinmoy-pal-a645011a4/
 
