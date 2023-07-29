@@ -1,6 +1,6 @@
-# MERN-FullStack
+# CurioSights-Frontend
 
-**Project Name: MERN-Client**
+**Project Name: CurioSights-Frontend**
 
 **Version: 0.1.0**
 
@@ -69,7 +69,7 @@ yarn test
 **Project Structure:**
 
 ```
-MERN-Client/
+CurioSights-Frontend/
   ├── node_modules/
   ├── public/
   │   ├── index.html
