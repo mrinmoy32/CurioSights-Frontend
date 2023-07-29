@@ -6,7 +6,7 @@
 
 **Description:**
 
-This project is the frontend for a MERN stack app to demonstrates use of React, Node, Express and MongoDB. CurioSights is social media platform where users can share photos of places they have visited and also view the places visited by others.
+This project is the frontend for a MERN stack app to demonstrates use of React, Node, Express and MongoDB. CurioSights is a social media platform where users can share photos of places they have visited and also view the places visited by others.
 
 **Getting Started:**
 
@@ -106,6 +106,7 @@ This project uses the `react-app` configuration for ESLint.
 Contributions to this project are welcome! Please follow the standard pull request process.
 
 **Useful Resources & Links:**
+
 The following links allow to dive deeper into some of the concepts.
 
 Official React Docs: https://reactjs.org/docs/getting-started.html
