@@ -41,6 +41,18 @@ const DUMMY_PLACES = [
     },
     creator: "u1",
   },
+  {
+    id: "p4",
+    title: "TajMahal",
+    description: "One of the 7 world wonders",
+    location: {
+      lat: 27.1751448,
+      lan: 59.5851109,
+    },
+    imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGFqJTIwbWFoYWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60",
+    address: "Dharmapuri, Forest Colony, Tajganj, Agra, Uttar Pradesh 282001",
+    creator: "u2",
+  },
 ];
 
 const UserPlaces = () => {
