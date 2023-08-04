@@ -2,7 +2,7 @@ import React from "react";
 import UsersList from "../components/UsersList";
 
 //dummy userslist data
-const users = [
+const DUMMY_USERS = [
   {
     id: 'u1',
     name: "Mrinmoy Pal",
@@ -21,7 +21,7 @@ const users = [
 function Users() {
   return (
     <div>
-      <UsersList item={users} />
+      <UsersList item={DUMMY_USERS} />
     </div>
   );
 }
