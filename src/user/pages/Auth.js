@@ -54,13 +54,17 @@ function Auth() {
         });
 
         const responseData = await response.json();
+        if(!response.ok){
+          throw new Error(responseData.message)
+        }
+
         console.log(responseData);
         setIsloading(false);
         auth.login();
 
       } catch (error) {
+        setIsloading(false);
         setError(error.message || 'Something went wrong, plesae try again')
-        console.log('fetch error', error);
       }
       
       console.log(formState.inputs); //send this to Backend when Backend is ready
@@ -91,8 +95,13 @@ function Auth() {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
+  const errorHandler = () => {
+    setError(null);
+  }
+
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={errorHandler}/>
       {isLoading && <LoadingSpinner asOverlay/>}
       <form className="authentication" onSubmit={AuthSubmitHandler}>
         <h4 className="authentication__header">Login Required!</h4>
