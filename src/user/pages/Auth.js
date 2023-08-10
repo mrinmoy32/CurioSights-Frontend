@@ -3,6 +3,8 @@ import { useForm } from "../../shared/hooks/form-hook";
 import Button from "../../shared/components/FormElements/Button";
 import Input from "../../shared/components/FormElements/Input";
 import { AuthContext } from "../../shared/context/auth.context";
+import ErrorModal from "../../shared/components/UIElement/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElement/LoadingSpinner";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
@@ -14,6 +16,9 @@ function Auth() {
   const auth = useContext(AuthContext);
 
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isLoading, setIsloading] =useState(false);
+  const [error, setError] =useState();
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -34,6 +39,8 @@ function Auth() {
     if (isLoginMode) {
     } else {
       try {
+        setIsloading(true);
+        setError(null);
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: {
@@ -48,11 +55,15 @@ function Auth() {
 
         const responseData = await response.json();
         console.log(responseData);
+        setIsloading(false);
+        auth.login();
+
       } catch (error) {
+        setError(error.message || 'Something went wrong, plesae try again')
         console.log('fetch error', error);
       }
+      
       console.log(formState.inputs); //send this to Backend when Backend is ready
-      auth.login();
     }
   };
 
@@ -82,6 +93,7 @@ function Auth() {
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner asOverlay/>}
       <form className="authentication" onSubmit={AuthSubmitHandler}>
         <h4 className="authentication__header">Login Required!</h4>
         <hr />
