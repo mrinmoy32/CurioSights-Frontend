@@ -16,8 +16,8 @@ function Auth() {
   const auth = useContext(AuthContext);
 
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [isLoading, setIsloading] =useState(false);
-  const [error, setError] =useState();
+  const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -35,11 +35,34 @@ function Auth() {
 
   const AuthSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsloading(true);
 
     if (isLoginMode) {
+      try {
+        setError(null);
+        const response = await fetch("http://localhost:5000/api/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsloading(false);
+        auth.login();
+      } catch (error) {
+        setIsloading(false);
+        setError(error.message || "Something went wrong, plesae try again");
+      }
     } else {
       try {
-        setIsloading(true);
         setError(null);
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
@@ -54,19 +77,18 @@ function Auth() {
         });
 
         const responseData = await response.json();
-        if(!response.ok){
-          throw new Error(responseData.message)
+        if (!response.ok) {
+          throw new Error(responseData.message);
         }
 
         console.log(responseData);
         setIsloading(false);
         auth.login();
-
       } catch (error) {
         setIsloading(false);
-        setError(error.message || 'Something went wrong, plesae try again')
+        setError(error.message || "Something went wrong, plesae try again");
       }
-      
+
       console.log(formState.inputs); //send this to Backend when Backend is ready
     }
   };
@@ -97,12 +119,12 @@ function Auth() {
 
   const errorHandler = () => {
     setError(null);
-  }
+  };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={errorHandler}/>
-      {isLoading && <LoadingSpinner asOverlay/>}
+      <ErrorModal error={error} onClear={errorHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
       <form className="authentication" onSubmit={AuthSubmitHandler}>
         <h4 className="authentication__header">Login Required!</h4>
         <hr />
