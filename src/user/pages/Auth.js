@@ -11,7 +11,7 @@ import {
 import "./Auth.css";
 
 function Auth() {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
@@ -28,10 +28,32 @@ function Auth() {
     false
   );
 
-  const AuthSubmitHandler = (event) => {
+  const AuthSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs); //send this to Backend when Backend is ready
-    auth.login();
+
+    if (isLoginMode) {
+    } else {
+      try {
+        const response = await fetch("http://localhost:5000/api/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+      } catch (error) {
+        console.log('fetch error', error);
+      }
+      console.log(formState.inputs); //send this to Backend when Backend is ready
+      auth.login();
+    }
   };
 
   const switchModeHandler = () => {
