@@ -4,47 +4,50 @@ export const useHttpClient = () => {
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState();
 
-  const activeHttpRequests = useRef([])
+  const activeHttpRequests = useRef([]);
 
-  const sendRequest = useCallback( async (
-    url,
-    method = "GET",
-    body = null,
-    headers = {}
-  ) => {
-    setIsloading(true);
-    const httpAbortCtrl = new AbortController();
-    activeHttpRequests.current.push(httpAbortCtrl);
+  const sendRequest = useCallback(
+    async (url, method = "GET", body = null, headers = {}) => {
+      setIsloading(true);
+      const httpAbortCtrl = new AbortController();
+      activeHttpRequests.current.push(httpAbortCtrl);
 
-    try {
-      const response = await fetch(url, {
-        method,
-        body,
-        headers,
-        signal: httpAbortCtrl.signal
-      });
+      try {
+        setError(null);
+        const response = await fetch(url, {
+          method,
+          body,
+          headers,
+          signal: httpAbortCtrl.signal,
+        });
 
-      const responseData = await response.json();
-      if (!response.ok) {
-        throw new Error(responseData.message);
+        const responseData = await response.json();
+
+        activeHttpRequests.current = activeHttpRequests.current.filter(
+          (reqCtrl) => reqCtrl !== httpAbortCtrl
+        );
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsloading(false);
+        return responseData;
+      } catch (error) {
+        setIsloading(false);
+        setError(error.message || "Something went wrong, plesae try again");
+        throw error;
       }
+    },
+    []
+  );
 
-      return responseData;
-
-    } catch (error) {
-      setIsloading(false);
-      setError(error.message || "Something went wrong, plesae try again");
-    }
-    setIsloading(false);
-  }, []);
-
-  const clearError =() => {
+  const clearError = () => {
     setError(null);
   };
   useEffect(() => {
     return () => {
-        activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort())
-    }
+      activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
+    };
   }, []);
-  return {isLoading, error, sendRequest, clearError}
+  return { isLoading, error, sendRequest, clearError };
 };
