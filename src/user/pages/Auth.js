@@ -105,44 +105,46 @@ function Auth() {
     <React.Fragment>
       <ErrorModal error={error} onClear={errorHandler} />
       {isLoading && <LoadingSpinner asOverlay />}
-      <form className="authentication" onSubmit={AuthSubmitHandler}>
-        <h4 className="authentication__header">Login Required!</h4>
-        <hr />
-        {!isLoginMode && (
+      <div className="authentication">
+        <form onSubmit={AuthSubmitHandler}>
+          <h4 className="authentication__header">Login Required!</h4>
+          <hr />
+          {!isLoginMode && (
+            <Input
+              id="name"
+              element="input"
+              type="name"
+              label="Name"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a name"
+              onInput={inputHandler}
+              placeholder="Please enter a name"
+            />
+          )}
           <Input
-            id="name"
+            id="email"
             element="input"
-            type="name"
-            label="Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a name"
+            type="email"
+            label="Email"
+            validators={[VALIDATOR_EMAIL()]}
+            errorText="Please enter a valid email id"
             onInput={inputHandler}
-            placeholder="Please enter a name"
+            placeholder="Please enter the email id"
           />
-        )}
-        <Input
-          id="email"
-          element="input"
-          type="email"
-          label="Email"
-          validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email id"
-          onInput={inputHandler}
-          placeholder="Please enter the email id"
-        />
-        <Input
-          id="password"
-          element="input"
-          type="password"
-          label="Password"
-          validators={[VALIDATOR_MINLENGTH(8)]}
-          errorText="Please enter a valid password (at least 8 characters)"
-          onInput={inputHandler}
-          placeholder="Please enter the password"
-        />
-        <Button type="submit" disabled={!formState.isValid}>
-          {isLoginMode ? "LOGIN" : "SIGN UP"}
-        </Button>
+          <Input
+            id="password"
+            element="input"
+            type="password"
+            label="Password"
+            validators={[VALIDATOR_MINLENGTH(8)]}
+            errorText="Please enter a valid password (at least 8 characters)"
+            onInput={inputHandler}
+            placeholder="Please enter the password"
+          />
+          <Button type="submit" disabled={!formState.isValid}>
+            {isLoginMode ? "LOGIN" : "SIGN UP"}
+          </Button>
+        </form>
         <div className="authentication__swich-button">
           <Button
             className="authentication__swich-button"
@@ -152,7 +154,7 @@ function Auth() {
             {isLoginMode ? "New User? SIGN UP" : "Exixting User? LOGIN"}
           </Button>
         </div>
-      </form>
+      </div>
     </React.Fragment>
   );
 }
