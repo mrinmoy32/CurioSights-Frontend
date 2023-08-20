@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -38,6 +39,8 @@ const NewPlace = () => {
     false
   );
 
+  const navigate = useNavigate();
+
   const placeSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -54,15 +57,15 @@ const NewPlace = () => {
           "Content-Type": "application/json",
         }
       );
-      //Redirect user to My places page/ or a new page
+      navigate('/'); //Redirect user to My places page/ or a new page
     } catch (error) {}
   };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError}/> 
+      <ErrorModal error={error} onClear={clearError} />
       <form className="place-form" onSubmit={placeSubmitHandler}>
-        {isLoading && <LoadingSpinner asOverlay /> }
+        {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
           element="input"
