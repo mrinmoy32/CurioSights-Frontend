@@ -6,6 +6,7 @@ import Input from "../../shared/components/FormElements/Input";
 import { AuthContext } from "../../shared/context/auth.context";
 import ErrorModal from "../../shared/components/UIElement/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElement/LoadingSpinner";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
@@ -107,7 +108,9 @@ function Auth() {
       {isLoading && <LoadingSpinner asOverlay />}
       <div className="authentication">
         <form onSubmit={AuthSubmitHandler}>
-          <h4 className="authentication__header">Login Required!</h4>
+          <h4 className="authentication__header">
+            {isLoginMode ? "Welcome Back!" : "Join CurioSights"}
+          </h4>
           <hr />
           {!isLoginMode && (
             <Input
@@ -121,6 +124,7 @@ function Auth() {
               placeholder="Please enter a name"
             />
           )}
+          {!isLoginMode && <ImageUpload id="image" center={true} />}
           <Input
             id="email"
             element="input"
