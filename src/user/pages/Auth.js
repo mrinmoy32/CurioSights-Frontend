@@ -37,6 +37,8 @@ function Auth() {
   const AuthSubmitHandler = async (event) => {
     event.preventDefault();
 
+    console.log(formState.inputs);
+
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -79,6 +81,7 @@ function Auth() {
       setFormData(
         {
           name: undefined,
+          image: undefined,
           ...formState.inputs,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
@@ -88,6 +91,10 @@ function Auth() {
         {
           name: {
             value: "",
+            isValid: false,
+          },
+          image: {
+            value: null,
             isValid: false,
           },
           ...formState.inputs,
@@ -124,7 +131,9 @@ function Auth() {
               placeholder="Please enter a name"
             />
           )}
-          {!isLoginMode && <ImageUpload id="image" center={true} />}
+          {!isLoginMode && (
+            <ImageUpload id="image" center onInput={inputHandler} />
+          )}
           <Input
             id="email"
             element="input"
