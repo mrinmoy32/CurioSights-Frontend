@@ -120,6 +120,9 @@ function Auth() {
           </h4>
           <hr />
           {!isLoginMode && (
+            <ImageUpload id="image" center onInput={inputHandler} />
+          )}
+          {!isLoginMode && (
             <Input
               id="name"
               element="input"
@@ -131,9 +134,7 @@ function Auth() {
               placeholder="Please enter a name"
             />
           )}
-          {!isLoginMode && (
-            <ImageUpload id="image" center onInput={inputHandler} />
-          )}
+          
           <Input
             id="email"
             element="input"
