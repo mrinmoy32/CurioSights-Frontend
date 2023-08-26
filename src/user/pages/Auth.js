@@ -129,7 +129,12 @@ function Auth() {
           </h4>
           <hr />
           {!isLoginMode && (
-            <ImageUpload id="image" center onInput={inputHandler} />
+            <ImageUpload
+              id="image"
+              center
+              onInput={inputHandler}
+              error="Please provide an image"
+            />
           )}
           {!isLoginMode && (
             <Input
