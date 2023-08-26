@@ -37,7 +37,7 @@ const NewPlace = () => {
         isValid: false,
       },
       image: {
-        value: null,
+        value: undefined,
         isValid: false,
       },
     },
@@ -55,6 +55,8 @@ const NewPlace = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("creator", auth.userId);
       formData.append("image", formState.inputs.image.value);
+      console.log(formState.inputs.image.value); // Log the image value to check if it's defined
+
       await sendRequest(
         "http://localhost:5000/api/places",
         "POST",
