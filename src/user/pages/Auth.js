@@ -37,7 +37,7 @@ function Auth() {
   const AuthSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log(formState.inputs);
+    // console.log(formState.inputs);
 
     if (isLoginMode) {
       try {
@@ -56,23 +56,32 @@ function Auth() {
       } catch (error) {}
     } else {
       try {
+        //To send image(binary data) as per of req we can use JSON format(only handles text data),
+        //Hence need formData format, this already built into JS
+        const formData = new FormData();
+        formData.append("name", formState.inputs.name.value);
+        formData.append("email", formState.inputs.email.value);
+        formData.append("password", formState.inputs.password.value);
+        formData.append("image", formState.inputs.image.value);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          formData
+          // JSON.stringify({
+          //   name: formState.inputs.name.value,
+          //   email: formState.inputs.email.value,
+          //   password: formState.inputs.password.value,
+          // }),
+          //-------------for formData format we don't need to add headers manually
+          // {
+          //   "Content-Type": "application/json",
+          // }
         );
 
         auth.login(responseData.user.id);
       } catch (error) {}
 
-      console.log(formState.inputs); //send this to Backend when Backend is ready
+      // console.log(formState.inputs); //send this to Backend when Backend is ready
     }
   };
 
@@ -134,7 +143,7 @@ function Auth() {
               placeholder="Please enter a name"
             />
           )}
-          
+
           <Input
             id="email"
             element="input"
