@@ -61,6 +61,7 @@ function App() {
         userId: userId,
         login: login,
         logout: logout,
+        access_token: access_token
       }}
     >
       <Router>
