@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Users from "./user/pages/Users";
 import NewPlace from "./places/pages/NewPlace";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -9,21 +14,21 @@ import Auth from "./user/pages/Auth";
 import { AuthContext } from "./shared/context/auth.context";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [access_token, setAccess_token] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid, access_token) => {
+    setAccess_token(access_token);
     setUserId(uid);
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setAccess_token(null);
     setUserId(null);
   }, []);
 
   let routes;
-  isLoggedIn
+  access_token
     ? (routes = (
         <React.Fragment>
           <Route path="/" Component={Users} />
@@ -32,12 +37,12 @@ function App() {
           <Route path="/:userId/places" Component={UserPlaces} />
           <Route path="/places/new" Component={NewPlace} />
           <Route path="/places/:placeId" Component={UpdatePlace} />
-           {/* Since both the above Route has path starting with "/places/" it could cause a problem 
+          {/* Since both the above Route has path starting with "/places/" it could cause a problem 
           if we write "/places/:placeId" this path before. This is beacuse :placeId is dynamic 
           and can have any value even "new". So it is better to keep the path having "new" before 
           the one having ":placeId". As this executes from top to bottom it checks new first then the 
           dynamic routing */}
-          <Route path='*' element={<Navigate to='/' />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </React.Fragment>
       ))
     : (routes = (
@@ -45,20 +50,23 @@ function App() {
           <Route path="/" Component={Users} />
           <Route path="/:userId/places" Component={UserPlaces} />
           <Route path="/auth" Component={Auth} />
-          <Route path='*' element={<Navigate to='/auth' />} />
+          <Route path="*" element={<Navigate to="/auth" />} />
         </React.Fragment>
       ));
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, userId: userId, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!access_token, //!! coverts it to boolean
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
         <MainNavigation />
         <main>
-          <Routes>
-            {routes}
-          </Routes>
+          <Routes>{routes}</Routes>
         </main>
       </Router>
     </AuthContext.Provider>

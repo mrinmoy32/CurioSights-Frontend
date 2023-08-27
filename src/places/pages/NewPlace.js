@@ -57,11 +57,9 @@ const NewPlace = () => {
       formData.append("image", formState.inputs.image.value);
       console.log(formState.inputs.image.value); // Log the image value to check if it's defined
 
-      await sendRequest(
-        "http://localhost:5000/api/places",
-        "POST",
-        formData
-      );
+      await sendRequest("http://localhost:5000/api/places", "POST", formData, {
+        Authorization: "Bearer " + auth.access_token,
+      });
       navigate("/"); //Redirect user to My places page/ or a new page
     } catch (error) {}
   };

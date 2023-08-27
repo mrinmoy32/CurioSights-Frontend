@@ -52,7 +52,7 @@ function Auth() {
             "Content-Type": "application/json",
           }
         );
-        auth.login(responseData.user.id);
+        auth.login(responseData.user.id, responseData.access_token);
       } catch (error) {}
     } else {
       try {
@@ -78,7 +78,7 @@ function Auth() {
           // }
         );
 
-        auth.login(responseData.user.id);
+        auth.login(responseData.user.id, responseData.access_token);
       } catch (error) {}
 
       // console.log(formState.inputs); //send this to Backend when Backend is ready
