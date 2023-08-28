@@ -130,6 +130,7 @@ function UpdatePlace() {
         }),
         {
           "Content-Type": "application/json",
+          Authorization: 'Bearer '+ auth.access_token
         }
       );
       navigate(`/${auth.userId}/places`)
