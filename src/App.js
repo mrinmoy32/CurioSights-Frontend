@@ -19,6 +19,10 @@ function App() {
 
   const login = useCallback((uid, access_token) => {
     setAccess_token(access_token);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userId: uid, access_token: access_token })
+    );
     setUserId(uid);
   }, []);
 
@@ -61,7 +65,7 @@ function App() {
         userId: userId,
         login: login,
         logout: logout,
-        access_token: access_token
+        access_token: access_token,
       }}
     >
       <Router>
