@@ -17,11 +17,18 @@ function App() {
   const [access_token, setAccess_token] = useState(false);
   const [userId, setUserId] = useState(null);
 
-    const login = useCallback((uid, access_token) => {
+  const login = useCallback((uid, access_token, expirationDate) => {
     setAccess_token(access_token);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getItem() + 1000 * 60 * 60);
+    //it's in ms, so 1000*60*60 = 1hr. expDate = currentDate + 1hr
     localStorage.setItem(
       "userData",
-      JSON.stringify({ userId: uid, access_token: access_token })
+      JSON.stringify({
+        userId: uid,
+        access_token: access_token,
+        expiration: tokenExpirationDate.toISOString(),
+      })
     );
     setUserId(uid);
   }, []);
@@ -29,13 +36,21 @@ function App() {
   const logout = useCallback(() => {
     setAccess_token(null);
     setUserId(null);
-    localStorage.removeItem('userData');
+    localStorage.removeItem("userData");
   }, []);
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    if(storedData && storedData.access_token){
-      login(storedData.userId, storedData.access_token)
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      storedData &&
+      storedData.access_token &&
+      new Date(storedData.expiration) > new Date()
+    ) {
+      login(
+        storedData.userId,
+        storedData.access_token,
+        new Date(storedData.expiration)
+      );
     }
   }, [login]);
 
