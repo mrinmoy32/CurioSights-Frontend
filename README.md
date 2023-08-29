@@ -1,6 +1,6 @@
 # CurioSights-Frontend
 
-## Project Name: CurioSights-Frontend
+**Project Name: CurioSights-Frontend**
 
 **Version: 0.1.0**
 
