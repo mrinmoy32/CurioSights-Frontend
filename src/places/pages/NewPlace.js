@@ -53,7 +53,7 @@ const NewPlace = () => {
       formData.append("title", formState.inputs.title.value);
       formData.append("address", formState.inputs.address.value);
       formData.append("description", formState.inputs.description.value);
-      formData.append("creator", auth.userId);
+      // formData.append("creator", auth.userId);  creator id will be taken from token itself
       formData.append("image", formState.inputs.image.value);
       console.log(formState.inputs.image.value); // Log the image value to check if it's defined
 
