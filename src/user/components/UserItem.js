@@ -11,7 +11,7 @@ function UserItem(props) {
         <Link to={`/${props.id}/places`}>
           <div className="user-item__image">
             {/* <img height={130} width={130} src={props.image} alt={props.name} /> */}
-            <Avatar image={`http://localhost:5000/${props.image}`} alt={props.name} />
+            <Avatar image={`${process.env.REACT_APP_ASSET_URL}/${props.image}`} alt={props.name} />
           </div>
           <div className="user-item__info">
             <h2>{props.name}</h2>
